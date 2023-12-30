@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>Attendence</title>
+    <style>
+        body{
+            background-image: url(https://www.imageshine.in/uploads/gallery/White-elegant-texture-background-style.jpg);
+            background-repeat: no-repeat;
+            background-position: fixed;
+            background-size: cover;
+        }
+        .content{
+            width:97%;
+            height: 90%;
+            margin: auto;
+            margin-top: 100px;
+            border: .3px solid gray;
+            padding-top: 0;
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: whitesmoke;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+            
+        }
+        .content input{
+            margin: 50px;
+            margin-left: 0;
+        }
+        .footer{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+        
+        }
+        .headder{
+            background-color: rgb(34, 34, 100);
+            color: white;
+            padding: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{%url 'Index' %}"> <img src="https://www.shareicon.net/data/512x512/2015/09/29/648557_select_512x512.png" alt="" width="40" height="44">
+            <span class="h5 text-info"> Face Attendence Marking System</span></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{%url 'Index' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{%url 'Allstudents' %}">Students</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Attendence
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{%url 'AllAttendence' %}">View Attendence</a></li>
+                  
+                </ul>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+              </li> -->
+            </ul>
+            <form class="d-flex">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a href="{%url 'SignOut' %}" class="nav-link">Logout</a></li>
+              </ul>
+            </form>
+          </div>
+        </div>
+      </nav>
+    
+
+      <div class="container mt-2">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content1 text-center">
+                    {% for message in messages  %}
+                    <span class="text-danger">{{message}}</h6>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="content">
+                    <div class="headder">
+                        <h4>Student Details</h4>
+                    </div>
+
+                    <div class="buttons mt-4">
+                        <table class="table table-stripped border-0">
+                            <tr>
+                                <th>Name:</th>
+                                <td>{{stu.student_name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Roll Number:</th>
+                                <td>{{stu.roll}}</td>
+                            </tr>
+                            <tr>
+                                <th>Class</th>
+                                <td>{{stu.class}}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="headder">
+                        <h4>Accademic Marks</h4>
+                    </div>
+                    <br><br>
+                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Semester Mark</button>
+                    
+                    <div class="buttons mt-4">
+                        <table class="table table-stripped border-0">
+                            
+                            <tr>
+                                <th>Semester</th>
+                                <th>Mark Or CGPA</th>
+                            </tr>
+                            {% for j in mark%}
+                            <tr>
+                                <td>{{j.semester}}</td>
+                                <td>{{j.mark}}</td>
+                            </tr>
+
+                            {% endfor %}
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="content">
+                    <div class="headder">
+                        <h4>Attendence</h4>
+                    </div>
+                    <table class="table table-muted table-stripped mt-3">
+                        <tr>
+                            <th>Name</th>
+                            <th>Roll Number</th>
+                            <th>Date</th>
+                            <th>Time</th>
+
+                        </tr>
+                        {% for i in att %}
+                        <tr>
+                            <td>{{i.student.student_name}}</td>
+                            <td>{{i.student.roll}}</td>
+                            <td>{{i.date}}</td>
+                            <td>{{i.time}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+      </div>
+
+
+      <!-- model -->
+
+      <!-- Button trigger modal -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Semester Mark</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="post">
+            {% csrf_token %}
+            <select name="sem" id="" class="form-control" required>
+                <option value="" selected disabled>--------------------</option>
+                <option value="Semester 1">Semester 1</option>
+                <option value="Semester 2">Semester 2</option>
+                <option value="Semester 3">Semester 3</option>
+                <option value="Semester 4">Semester 4</option>
+                <option value="Semester 5">Semester 5</option>
+                <option value="Semester 6">Semester 6</option>
+                <option value="Semester 7">Semester 7</option>
+                <option value="Semester 8">Semester 8</option>
+
+            </select><br><br>
+            <input type="number" class="form-control" required name="mark" placeholder="Mark">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <footer>
+        <div class="footer bg-light">
+            Attendence marking system &copy; reserved 
+        </div>
+      </footer>
+</body>
+</html>
